@@ -144,9 +144,18 @@ if uploaded_file:
     if menu == "PCA & Clustering":
         st.subheader("🔎 PCA - Dimensionality Reduction")
 
-        numerical_df = df.select_dtypes(include=np.number).dropna()
+        numerical_df = df.select_dtypes(include=np.number)
+
+        # Replace inf/-inf with NaN, then fill with column means
+        numerical_df = numerical_df.replace([np.inf, -np.inf], np.nan)
+        numerical_df = numerical_df.fillna(numerical_df.mean())
+
+        # Only keep columns that are fully numeric now
+        numerical_df = numerical_df.loc[:, numerical_df.notnull().all()]
+
         scaler = StandardScaler()
         scaled_data = scaler.fit_transform(numerical_df)
+
 
         pca = PCA()
         pca.fit(scaled_data)

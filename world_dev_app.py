@@ -29,7 +29,7 @@ if uploaded_file:
     if uploaded_file.name.endswith(".xlsx"):
         df = pd.read_excel(uploaded_file, engine='openpyxl')
     else:
-        df = pd.read_csv(uploaded_file)
+        df = pd.read_csv(uploaded_file, engine='openpyxl')
 
     # -------------------------------
     # Section 1: Upload & Preview

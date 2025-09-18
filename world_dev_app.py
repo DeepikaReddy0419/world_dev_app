@@ -27,7 +27,7 @@ uploaded_file = st.sidebar.file_uploader("Upload Excel/CSV file", type=["xlsx", 
 if uploaded_file:
     # Load file
     if uploaded_file.name.endswith(".xlsx"):
-        df = pd.read_excel(uploaded_file)
+        df = pd.read_excel(uploaded_file, engine='openpyxl')
     else:
         df = pd.read_csv(uploaded_file)
 
